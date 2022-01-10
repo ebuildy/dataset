@@ -19,11 +19,13 @@ events = ["load", "search", "click"]
 endusers = []
 companies = []
 locales = ["fr", "it", "en", "de", "es"]
+countries = ["france", "italy", "spain", "USA", "china", "england", "germany", "russia"]
+domains = ["lopez.com", "toto.fr", "charlie.fr", "company.com", "vodka.ru"]
 
 def buildClientList(count=100):
     for _ in range(count):
         client = {
-            "country" : fake.country(),
+            "country" : random.choice(countries),
             "user_agent" : fake.user_agent(),
             "ip" : hashlib.md5(fake.ipv4().encode()).hexdigest()
         }
@@ -39,9 +41,15 @@ def getItem():
     enduser = random.choice(endusers)
     company = random.choice(companies)
     locale = random.choice(locales)
+    domain = random.choice(domains)
+    
+    url_params = {
+        'load' : {},
+        'search' : { "query" : company , "group" : fake.random_lowercase_letter(), "locale" : locale},
+        'click' : { "query" : company , "group" : fake.random_lowercase_letter(), "locale" : locale, "domain" : domain}
+    }[event]
     
     url_query_string = "/api/" + event + "?"
-    url_params = { "query" : company , "group" : fake.random_lowercase_letter(), "locale" : locale}
     url = url_query_string +  urllib.parse.urlencode(url_params)
     
     return {
