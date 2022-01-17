@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  zeppelin:
+    image: apache/zeppelin:0.10.0
+    environment: {}
+    volumes:
+    - ../..:/opt/volumes/tp:rw
+    - ./notebook:/opt/zeppelin/notebook:rw
+    ports:
+    - 8080:8080
+    - 4040:4040
+  

@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 faker = "*"
 fire = "*"
+numpy = "*"
+ua-parser = "*"
+user-agents = "*"
 
 [dev-packages]
 
